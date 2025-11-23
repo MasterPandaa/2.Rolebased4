@@ -1,7 +1,7 @@
-import sys
 import random
+import sys
 from collections import deque
-from typing import Deque, Set, Tuple, Optional
+from typing import Deque, Optional, Set, Tuple
 
 import pygame
 
@@ -33,7 +33,9 @@ class Snake:
 
     def __init__(self) -> None:
         start_x, start_y = COLS // 2, ROWS // 2
-        self.body: Deque[Tuple[int, int]] = deque([(start_x - 1, start_y), (start_x, start_y)])
+        self.body: Deque[Tuple[int, int]] = deque(
+            [(start_x - 1, start_y), (start_x, start_y)]
+        )
         self.direction: Tuple[int, int] = RIGHT
         self.grow_pending: int = 0
         self.occupied: Set[Tuple[int, int]] = set(self.body)
@@ -83,7 +85,8 @@ class Snake:
 
     def draw(self, surface: pygame.Surface) -> None:
         for i, (x, y) in enumerate(self.body):
-            rect = pygame.Rect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+            rect = pygame.Rect(x * CELL_SIZE, y * CELL_SIZE,
+                               CELL_SIZE, CELL_SIZE)
             color = DARK_GREEN if i < len(self.body) - 1 else GREEN
             pygame.draw.rect(surface, color, rect)
             # Optional border for readability
@@ -213,7 +216,9 @@ def main() -> None:
 
         if game_over:
             render_text(screen, "GAME OVER", 32, WHITE, HEIGHT // 2 - 20)
-            render_text(screen, "Press R to Restart or ESC to Quit", 20, WHITE, HEIGHT // 2 + 20)
+            render_text(
+                screen, "Press R to Restart or ESC to Quit", 20, WHITE, HEIGHT // 2 + 20
+            )
 
         pygame.display.flip()
         clock.tick(60)
